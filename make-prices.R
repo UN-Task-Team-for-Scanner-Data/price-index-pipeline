@@ -11,10 +11,10 @@ periods <- seq(
 
 prices <- data.frame(
   period = rep(periods, each = 1e4),
-  businesses = rep(businesses, each = 10),
+  business = rep(businesses, each = 10),
   product = products,
-  price = runif(1e4 * n, 0.5, 2),
-  back_price = runif(1e4 * n, 0.5, 2)
+  price = runif(1e4 * length(periods), 0.5, 2),
+  back_price = runif(1e4 * length(periods), 0.5, 2)
 )
 
 prices |>

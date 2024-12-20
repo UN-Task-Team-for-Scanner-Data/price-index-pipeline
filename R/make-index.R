@@ -1,9 +1,12 @@
-prices <- arrow::open_data("data/prices")
+prices <- arrow::open_dataset("data/prices")
 
 weights <- arrow::read_parquet("data/weights.parquet")
 
 index <- as.data.frame(prices) |>
-  piar::elemental_index(relative ~ period + business, contrib = TRUE) |>
+  piar::elemental_index(
+    price / back_price ~ period + business,
+    contrib = TRUE
+  ) |>
   aggregate(weights)
 
 as.data.frame(index) |>

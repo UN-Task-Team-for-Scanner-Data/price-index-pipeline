@@ -1,0 +1,17 @@
+stages:
+  process-prices:
+    cmd: Rscript R/process-prices.R
+    deps:
+      - R/process-prices.R
+      - data/raw-prices
+    outs:
+      - data/prices
+  make-index:
+    cmd: Rscript R/make-index.R
+    deps:
+      - R/make-index.R
+      - data/prices
+      - data/weights.parquet
+    outs:
+      - output/index
+      - output/contrib

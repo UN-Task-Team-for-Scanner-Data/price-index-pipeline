@@ -7,3 +7,5 @@ dependencies:
   - r-languageserver
   - dvc
   - radian
+variables:
+  DVC_NO_ANALYTICS: true
