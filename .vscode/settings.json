@@ -1,0 +1,5 @@
+{
+    "r.rterm.linux": "/home/steve/miniforge3/envs/price-index-pipeline/bin/radian",
+    "editor.tabSize": 2,
+    "editor.rulers": [80]
+}
