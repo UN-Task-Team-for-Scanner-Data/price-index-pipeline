@@ -3,15 +3,23 @@ stages:
     cmd: Rscript R/process-prices.R
     deps:
       - R/process-prices.R
-      - data/raw-prices
+      - data/raw-survey-prices.parquet
     outs:
-      - data/prices
+      - data/survey-prices.parquet
+  make-geks:
+    cmd: Rscript R/make-geks.R
+    deps:
+      - R/make-geks.R
+      - data/scanner-prices.parquet
+    outs:
+      - data/geks.parquet
   make-index:
     cmd: Rscript R/make-index.R
     deps:
       - R/make-index.R
-      - data/prices
+      - data/survey-prices.parquet
+      - data/geks.parquet
       - data/weights.parquet
     outs:
-      - output/index
-      - output/contrib
+      - data/index.parquet
+      - data/contributions.parquet

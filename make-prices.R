@@ -1,7 +1,7 @@
 args <- commandArgs(TRUE)
 
-businesses <- sprintf("B%03d", 0:999)
-products <- sprintf("P%04d", 0:9999)
+businesses <- sprintf("B%03d", 0:989)
+products <- sprintf("P%04d", 0:9899)
 
 periods <- seq(
   as.Date(paste(args[1], "01", sep = "-")),
@@ -10,16 +10,24 @@ periods <- seq(
 )
 
 prices <- data.frame(
-  period = rep(periods, each = 1e4),
-  business = rep(businesses, each = 10),
+  period = rep(as.factor(periods), each = length(products)),
+  business = rep(as.factor(businesses), each = 10),
   product = products,
-  price = runif(1e4 * length(periods), 0.5, 2),
-  back_price = runif(1e4 * length(periods), 0.5, 2)
+  price = runif(length(products) * length(periods), 0.5, 2),
+  back_price = runif(length(products) * length(periods), 0.5, 2)
 )
 
-prices |>
-  dplyr::group_by(period) |>
-  arrow::write_dataset(
-    "data/raw-prices",
-    existing_data_behavior = "delete_matching"
-  )
+arrow::write_parquet(prices, "data/raw-survey-prices.parquet")
+
+scanner_products <- sprintf("SP%04d", 0:99999)
+
+periods <- c(trunc(periods[1] - 1, units = "month"), periods)
+
+scanner_prices <- data.frame(
+  period = rep(as.factor(periods), each = length(scanner_products)),
+  product = as.factor(scanner_products),
+  sales = 1000 * runif(length(scanner_products) * length(periods), 0.5, 2),
+  quantity = sample(100:1000, length(scanner_products) * length(periods), replace = TRUE)
+)
+
+arrow::write_parquet(scanner_prices, "data/scanner-prices.parquet")

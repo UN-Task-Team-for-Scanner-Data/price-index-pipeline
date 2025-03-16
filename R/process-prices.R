@@ -1,17 +1,11 @@
-raw_prices <- arrow::open_dataset("data/raw-prices")
+survey_prices <- arrow::read_parquet("data/raw-survey-prices.parquet")
 
-prices <- raw_prices |>
+prices <- survey_prices |>
   dplyr::filter(
     dplyr::between(price, 0.1, 1.9),
     dplyr::between(back_price, 0.1, 1.9)
   ) |>
-  dplyr::collect() |>
   dplyr::group_by(period) |>
   dplyr::filter(!gpindex::quartile_method(price / back_price))
 
-prices |>
-  dplyr::group_by(period) |>
-  arrow::write_dataset(
-    "data/prices",
-    existing_data_behavior = "delete_matching"
-  )
+arrow::write_parquet(prices, "data/survey-prices.parquet")
