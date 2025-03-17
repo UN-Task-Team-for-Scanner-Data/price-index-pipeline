@@ -1,8 +1,7 @@
 scanner_prices <- arrow::read_parquet("data/scanner-prices.parquet")
 
 prices <- scanner_prices |>
- dplyr::mutate(unit_price = sales / quantity) |>
- dplyr::filter(quantity >= 10)
+  dplyr::mutate(unit_price = sales / quantity)
 
 geks <- with(
   prices,
