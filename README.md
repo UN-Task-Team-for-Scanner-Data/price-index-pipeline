@@ -12,7 +12,7 @@ aggregating the elementary indexes with an arithmetic (Lowe or Young, depending
 on the interpretation of the weights) index.
 
 ```mermaid
-flowchat TD
+flowchart TD
     top["1"] --> a1["11"]
     top --> a2["12"]
     a1 --> b1["111"]
