@@ -1,0 +1,5 @@
+outs:
+- md5: 8297f15312823a593c63a78b6fe0a217
+  size: 72674124
+  hash: md5
+  path: scanner-prices.parquet

@@ -1,0 +1,5 @@
+outs:
+- md5: ed44b2b6332a281eb3d7d8ece7bf6dff
+  size: 9884545
+  hash: md5
+  path: raw-survey-prices.parquet

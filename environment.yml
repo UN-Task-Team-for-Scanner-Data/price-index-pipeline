@@ -1,7 +1,7 @@
 name: price-index-pipeline
 dependencies:
-  - r-base=4.4.*
-  - r-piar=0.8.*
+  - r-base=4.4.3
+  - r-piar=0.8.2
   - r-arrow
   - r-dplyr
   - r-languageserver

@@ -69,11 +69,17 @@ dvc repro
 
 ```mermaid
 flowchart TD
-    node1["make-geks"]
-    node2["make-index"]
-    node3["process-prices"]
-    node1 --> node2
-    node3 --> node2
+        node1["data/raw-survey-prices.parquet.dvc"]
+        node2["data/scanner-prices.parquet.dvc"]
+        node3["data/weights.parquet.dvc"]
+        node4["make-geks"]
+        node5["make-index"]
+        node6["process-prices"]
+        node1-->node6
+        node2-->node4
+        node3-->node5
+        node4-->node5
+        node6-->node5
 ```
 
 The results can be put under version control.
