@@ -2,7 +2,9 @@ prices <- arrow::read_parquet("data/survey-prices.parquet")
 
 weights <- arrow::read_parquet("data/weights.parquet")
 
-geks <- arrow::read_parquet("data/geks.parquet")
+geks <- arrow::read_parquet("data/geks.parquet") |>
+  piar::as_index(chainable = FALSE) |>
+  piar::unchain()
 
 elementals <- prices |>
   piar::elementary_index(
@@ -11,7 +13,7 @@ elementals <- prices |>
     contrib = TRUE
   )
 
-elementals[paste0("B", 990:999), geks$period] <- geks$value
+elementals[paste0("B", 990:999)] <- geks
 
 index <- aggregate(elementals, weights)
 

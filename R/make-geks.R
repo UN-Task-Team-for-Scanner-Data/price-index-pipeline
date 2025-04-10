@@ -10,6 +10,6 @@ geks <- with(
   gpindex::splice_index()
 
 arrow::write_parquet(
-  data.frame(period = names(geks), value = geks),
+  data.frame(period = names(geks), level = "B990-B999", value = geks),
   "data/geks.parquet"
 )
